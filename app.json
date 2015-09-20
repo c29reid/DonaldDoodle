@@ -1,0 +1,8 @@
+{
+	"name": "Donald Doodle",
+	"description": "A simple multiplayer web drawing game"
+	"scripts" {
+		"build": "gulp buld",
+		"start": "gulp run"
+	}
+}

@@ -4,12 +4,24 @@
   "description": "A multiplayer drawing game",
   "main": "server.js",
   "author": "",
-  "license": "MIT",
+  "scripts": {
+	"build": "gulp build",
+	"start": "gulp run"
+  },
   "contributors": [
   ],
   "dependencies": {
     "express": "^4.12.4",
     "socket.io": "^1.3.5",
-    "socket.io-client": "^1.3.5"
+    "socket.io-client": "^1.3.5",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.1.0",
+    "gulp-nodemon": "^2.0.3",
+    "babel": "^5.6.14",
+    "babel-core": "^5.6.15",
+    "babel-loader": "^5.3.0",
+    "webpack": "^1.10.1",
+    "webpack-stream": "^2.0.0",
+    "nodemon": "^1.2.1"
   }
 }
