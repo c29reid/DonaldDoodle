@@ -47,7 +47,7 @@ function addClick(x, y, dragging){
 	x2 : x, y2 : y, 
 	id: socket.id,
 	colour : playerColour, 
-	radius : curSize });
+	rad : curSizeToRad(curSize) });
 }
 
 function startGame(type) {
@@ -87,7 +87,7 @@ function setupSocket(socket) {
 	ctx.lineTo(data.x2, data.y2);
 	ctx.closePath();
 	ctx.strokeStyle = data.colour; 
-	ctx.lineWidth = data.radius;
+	ctx.lineWidth = data.rad;
 	ctx.stroke();
   });
   socket.on('background_changed', function(data) {
@@ -203,6 +203,22 @@ function endDraw() {
 	mouseDown = false;
 }
 
+function curSizeToRad(size) {
+	switch (size) {
+		case "small":
+			return 2;
+		case "normal":
+			return 5;
+		case "large":
+			return 10;
+		case "huge":
+			return 20;
+		default:
+			break;
+	}
+
+}
+
 function redraw(){
 	ctx.lineJoin = "round";
 	var radius;
@@ -214,22 +230,7 @@ function redraw(){
      }else{
        ctx.moveTo(clickX[i]-1, clickY[i]);
      }
-	 switch (clickSize[i]) {
-				case "small":
-					radius = 2;
-					break;
-				case "normal":
-					radius = 5;
-					break;
-				case "large":
-					radius = 10;
-					break;
-				case "huge":
-					radius = 20;
-					break;
-				default:
-					break;
-				}
+     radius = curSizeToRad(clickSize[i]);
      ctx.lineTo(clickX[i], clickY[i]);
      ctx.closePath();
 	 ctx.strokeStyle = clickColour[i];
