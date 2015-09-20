@@ -3,6 +3,7 @@ var socket;
 
 var cursorRadius = 5;
 var playerColour = '#0000FF';
+
 var KEY_ENTER = 13;
 var playerName;
 var playerType;
@@ -17,11 +18,20 @@ var clickX = new Array();
 var clickY = new Array();
 var clickDrag = new Array();
 
-function addClick(x, y, dragging)
-{
+
+var colourPurple = "#cb3594";
+var colourGreen = "#659b41";
+var colourYellow = "#ffcf33";
+var colourBrown = "#986928";
+
+playerColour = colourPurple;
+var clickColour = new Array();
+
+function addClick(x, y, dragging){
   clickX.push(x);
   clickY.push(y);
   clickDrag.push(dragging);
+  clickColour.push(playerColour);
 }
 
 function startGame(type) {
@@ -65,9 +75,26 @@ window.onload = function() {
 			startGame('player');
 		}
 	 }, false);
+	 var purpleBtn = document.getElementById('Purple');
+	 purpleBtn.onclick = function() {
+		 playerColour = colourPurple;
+	 }
+	 var greenBtn = document.getElementById('Green');
+	 greenBtn.onclick = function() {
+		 playerColour = colourGreen;
+	 }
+	 var yellowBtn = document.getElementById('Yellow');
+	 yellowBtn.onclick = function() {
+		 playerColour = colourYellow;
+	 }
+	 var brownBtn = document.getElementById('Brown');
+	 brownBtn.onclick = function() {
+		 playerColour = colourBrown;
+	 }
 }
 
 var ctx = canvas.getContext("2d");
+
 
 function getMousePos(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
@@ -104,7 +131,7 @@ function endDraw() {
 
 function redraw(){
   
-  ctx.strokeStyle = playerColour;
+  /*ctx.strokeStyle = playerColour;*/
   ctx.lineJoin = "round";
   ctx.lineWidth = cursorRadius;
 			
@@ -117,6 +144,7 @@ function redraw(){
      }
      ctx.lineTo(clickX[i], clickY[i]);
      ctx.closePath();
+	 ctx.strokeStyle = clickColour[i];
      ctx.stroke();
   }
 }
@@ -131,5 +159,4 @@ function initCanvasWithImage(url) {
 						0, 0, scale*this.width, scale*this.height);
 		}	
 	img.src = url;
-	
 }
