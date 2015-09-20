@@ -86,7 +86,19 @@ window.onload = function() {
 		clickSize = new Array();
 		clickColour = new Array();
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
-		initCanvasWithImage(image)
+		initCanvasWithImage(image);
+	 }
+	 //New image button
+	 var newImgBtn = document.getElementById('NewImg');
+	 newImgBtn.onclick = function(){
+		clickX = new Array();
+		clickY = new Array();
+		clickDrag = new Array();
+		clickSize = new Array();
+		clickColour = new Array();
+		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
+		image = newImageInput.value;
+		initCanvasWithImage(image);
 	 }
 	 //Colour buttons
 	 var purpleBtn = document.getElementById('Purple');
