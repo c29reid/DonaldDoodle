@@ -1,10 +1,50 @@
+cursorRadius = 5;
+playerColour = '#0000FF';
+var KEY_ENTER = 13;
+
+mouseDown = false;
+
+
+
+function startGame(type) {
+    playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '').substring(0,25);
+    playerType = type;
+
+    screenWidth = window.innerWidth;
+    screenHeight = window.innerHeight;
+
+    document.getElementById('startMenuWrapper').style.maxHeight = '0px';
+    document.getElementById('gameAreaWrapper').style.opacity = 1;
+	
+	initCanvasWithImage("https://a248.e.akamai.net/f/1202/1579/4m/i.dailymail.co.uk/i/pix/2014/10/06/1412613364603_wps_17_SANTA_MONICA_CA_AUGUST_04.jpg");	
+	canvas.addEventListener("mousedown", handleMouseDown, false);
+	canvas.addEventListener("mousemove", handleMouseMove, false);
+	canvas.addEventListener("mouseup", endDraw, false);
+	canvas.addEventListener("mouseout", endDraw, false);
+
+}
+
+window.onload = function() {
+
+	var btn = document.getElementById('startButton');
+	btn.onclick = function() {
+		startGame('player');
+
+	}
+	 playerNameInput.addEventListener('keypress', function (e) {
+        var key = e.which || e.keyCode;
+		
+		if (key === KEY_ENTER) {
+			startGame('player');
+		}
+	 }, false);
+}
+
 var canvas = document.getElementById('cvs');
 var ctx = canvas.getContext("2d");
 
-cursorRadius = 5;
-playerColour = '#0000FF';
 
-mouseDown = false;
+
 
 function drawCircle(x, y) {
 	ctx.beginPath();
@@ -51,14 +91,4 @@ function initCanvasWithImage(url) {
 	}
 	img.src = url;
 
-}
-
-window.onload = function(){ 
-	initCanvasWithImage("https://a248.e.akamai.net/f/1202/1579/4m/i.dailymail.co.uk/i/pix/2014/10/06/1412613364603_wps_17_SANTA_MONICA_CA_AUGUST_04.jpg");	
-	canvas.addEventListener("mousedown", handleMouseDown, false);
-	canvas.addEventListener("mousemove", handleMouseMove, false);
-	canvas.addEventListener("mouseup", endDraw, false);
-	canvas.addEventListener("mouseout", endDraw, false);
-	
-	
 }
