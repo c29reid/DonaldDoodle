@@ -1,10 +1,14 @@
-cursorRadius = 5;
+var io = require('socket.io-client');
+var socket;
+
+var playerColour = '#0000FF';
+
 var KEY_ENTER = 13;
 var playerName;
 var playerType;
 var image;
 
-mouseDown = false;
+var mouseDown = false;
 
 var canvas = document.getElementById('cvs');
 
@@ -12,6 +16,9 @@ var canvas = document.getElementById('cvs');
 var clickX = new Array();
 var clickY = new Array();
 var clickDrag = new Array();
+var clickSize = new Array();
+var clickColour = new Array();
+var curSize = "normal";
 
 
 var colourPurple = "#cb3594";
@@ -20,13 +27,13 @@ var colourYellow = "#ffcf33";
 var colourBrown = "#986928";
 
 playerColour = colourPurple;
-var clickColour = new Array();
 
 function addClick(x, y, dragging){
   clickX.push(x);
   clickY.push(y);
   clickDrag.push(dragging);
   clickColour.push(playerColour);
+  clickSize.push(curSize);
 }
 
 function startGame(type) {
@@ -34,17 +41,25 @@ function startGame(type) {
     playerType = type;
 	image = imageInput.value;
 
-    screenWidth = window.innerWidth;
-    screenHeight = window.innerHeight;
+    var screenWidth = window.innerWidth;
+    var screenHeight = window.innerHeight;
 
     document.getElementById('startMenuWrapper').style.maxHeight = '0px';
     document.getElementById('gameAreaWrapper').style.opacity = 1;
 	
-	initCanvasWithImage(image);
-	canvas.addEventListener("mousedown", handleMouseDown, false);
-	canvas.addEventListener("mousemove", handleMouseMove, false);
-	canvas.addEventListener("mouseup", endDraw, false);
-	canvas.addEventListener("mouseout", handleMouseLeave, false);
+    initCanvasWithImage(image);
+    canvas.addEventListener("mousedown", handleMouseDown, false);
+    canvas.addEventListener("mousemove", handleMouseMove, false);  
+    canvas.addEventListener("mouseup", endDraw, false);
+    canvas.addEventListener("mouseout", handleMouseLeave, false);
+
+    if (!socket) {
+	socket = io({});
+	setupSocket(socket);
+    }
+}
+
+function setupSocket(socket) {
 
 }
 
@@ -62,6 +77,7 @@ window.onload = function() {
 			startGame('player');
 		}
 	 }, false);
+	 //Colour buttons
 	 var purpleBtn = document.getElementById('Purple');
 	 purpleBtn.onclick = function() {
 		 playerColour = colourPurple;
@@ -77,6 +93,23 @@ window.onload = function() {
 	 var brownBtn = document.getElementById('Brown');
 	 brownBtn.onclick = function() {
 		 playerColour = colourBrown;
+	 }
+	 //Size buttons
+	 var smallBtn = document.getElementById('Small');
+	 smallBtn.onclick = function() {
+		 curSize = "small";
+	 }
+	 var normBtn = document.getElementById('Normal');
+	 normBtn.onclick = function(){
+		 curSize = "normal";
+	 }
+	 var largeBtn = document.getElementById('Large');
+	 largeBtn.onclick = function(){
+		 curSize = "large";
+	 }
+	 var hugeBtn = document.getElementById('Huge');
+	 hugeBtn.onclick = function(){
+		 curSize = "huge";
 	 }
 }
 
@@ -118,10 +151,10 @@ function endDraw() {
 
 function redraw(){
   
-  /*ctx.strokeStyle = playerColour;*/
-  ctx.lineJoin = "round";
-  ctx.lineWidth = cursorRadius;
-			
+	/*ctx.strokeStyle = playerColour;*/
+	ctx.lineJoin = "round";
+	var radius;
+		
   for(var i=0; i < clickX.length; i++) {		
     ctx.beginPath();
     if(clickDrag[i] && i){
@@ -129,9 +162,26 @@ function redraw(){
      }else{
        ctx.moveTo(clickX[i]-1, clickY[i]);
      }
+	 switch (clickSize[i]) {
+				case "small":
+					radius = 2;
+					break;
+				case "normal":
+					radius = 5;
+					break;
+				case "large":
+					radius = 10;
+					break;
+				case "huge":
+					radius = 20;
+					break;
+				default:
+					break;
+				}
      ctx.lineTo(clickX[i], clickY[i]);
      ctx.closePath();
 	 ctx.strokeStyle = clickColour[i];
+	 ctx.lineWidth = radius;
      ctx.stroke();
   }
 }
@@ -183,5 +233,5 @@ function initCanvasWithImage(url) {
 		ctx.drawImage(img, 0, 0, this.width, this.height,
 						0, 0, scale*this.width, scale*this.height);
 		}	
-	img.src = url;	
+	img.src = url;
 }
