@@ -11,11 +11,11 @@ canvas { border: 1px solid black;
 	padding-right: 0;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: auto;
+	margin-top: 20px;
 	display: block;
 }
 #status {
-    position: relative;
+    position: center;
     padding: 10px;
     background: rgba(0, 0, 0, 0.4);
     color: #FFF;
@@ -23,18 +23,92 @@ canvas { border: 1px solid black;
     top: 2px;
     right: 2px;
     font-weight: bold;
-    text-align: left;
+    text-align: center;
+}
+
+#startMenu {
+    position: center;
+    margin: auto;
+    margin-top: 10px;
+    width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    background-color: #FC6C85;
+    box-sizing: border-box;
 }
 
 #startMenu p {
     padding: 0;
-    text-align: left;
+    text-align: center;
     font-size: x-large;
     font-weight: bold;
+	color: #800517;
+}
+
+#playerNameInput {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border: solid 1px #dcdcdc;
+    transition: box-shadow 0.3s, border 0.3s;
+    box-sizing: border-box;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+#playerNameInput:focus, #playerNameInput.focus {
+    border: solid 1px #CCCCCC;
+    box-shadow: 0 0 3px 1px #DDDDDD;
+}
+
+#startButton {
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: large;
+    color: #C47451;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    background: #FFFFCC;
+    border: 0;
+    border-bottom: 2px solid #F3E5AB;
+    cursor: pointer;
+    -webkit-box-shadow: inset 0 -2px #F3E5AB;
+    box-shadow: inset 0 -2px #F3E5AB;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#startButton:active, #startButton:hover {
+    top: 1px;
+    background: #F2BB66;
+    outline: none;
+    -webkit-box-shadow: none;
+    /*box-shadow: inset 0 -2px #893BFF;*/
+}
+
+#startMenuWrapper {
+    -webkit-transition: max-height 1s;
+    -moz-transition: max-height 1s;
+    -ms-transition: max-height 1s;
+    -o-transition: max-height 1s;
+    transition: max-height 1s;
+    overflow: hidden;
 }
 
 #startMenuWrapper {
     z-index: 2;
+	position: center;
 }
 
 #gameAreaWrapper {
