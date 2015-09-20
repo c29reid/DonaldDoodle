@@ -7,8 +7,6 @@ playerColour = '#0000FF';
 mouseDown = false;
 
 function drawCircle(x, y) {
-	x -= 8;
-	y -= 8;
 	ctx.beginPath();
 	ctx.fillStyle = playerColour;
 	ctx.arc(x, y, cursorRadius, 0, 2*Math.PI, false);
@@ -17,14 +15,24 @@ function drawCircle(x, y) {
 	
 }
 
-function handleMouseDown() {
-	drawCircle(event.pageX, event.pageY);
+function getMousePos(canvas, evt) {
+	var rect = canvas.getBoundingClientRect();
+	return {
+		x: evt.clientX - rect.left, 
+		y: evt.clientY - rect.top
+	}
+}
+
+function handleMouseDown(evt) {
+	var mousePos = getMousePos(canvas, evt)
+	drawCircle(mousePos.x, mousePos.y);
 	mouseDown = true;
 }
 
-function handleMouseMove() {
+function handleMouseMove(evt) {
 	if (mouseDown) {
-		drawCircle(event.pageX, event.pageY);
+		var mousePos = getMousePos(canvas, evt)
+		drawCircle(mousePos.x, mousePos.y);
 	}
 }
 

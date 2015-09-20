@@ -1,8 +1,30 @@
 <html>
-	<style type="text/css">
-      canvas { border: 1px solid black; }
-    </style>
-	<canvas id="cvs" width="600" height="600">
-	</canvas>
+	<head>
+		<title>Donald Doodle</title>
+		<link rel="stylesheet" href="css/app.css"/> 
+	</head>
+	<body>
+	<canvas tabindex="1" id="cvs"></canvas>
+    <div id="gameAreaWrapper">
+        <div id="status"><span class="title">Doodlers</span></div>
+        <div class="chatbox" id="chatbox">
+            <ul id="chatList" class="chat-list"></ul>
+            <input id="chatInput" type="text" class="chat-input" placeholder="Chat here..." maxlength="35" />
+        </div>
+		<canvas id="cvs" width="600" height="600"></canvas>
+		</div>
+		<div id = "startMenuWrapper">
+			<div id = "startMenu">
+				<p>Doodle</p>
+				<input type = "text" tabindex = "0" autofocus placeholder="Enter your name here" id="playerNameInput" maxlength="25" />
+				<br />
+				<button id="startButton">Start Doodling!</button>
+				<br />
+			</div>
+		</div>
+	
+	<style src="css/app.css"></style>
+	
 	<script src="js/app.js"></script>
+</body>
 </html>
