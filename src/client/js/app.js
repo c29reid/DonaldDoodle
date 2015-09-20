@@ -62,6 +62,22 @@ window.onload = function() {
 			startGame('player');
 		}
 	 }, false);
+	 var purpleBtn = document.getElementById('Purple');
+	 purpleBtn.onclick = function() {
+		 playerColour = colourPurple;
+	 }
+	 var greenBtn = document.getElementById('Green');
+	 greenBtn.onclick = function() {
+		 playerColour = colourGreen;
+	 }
+	 var yellowBtn = document.getElementById('Yellow');
+	 yellowBtn.onclick = function() {
+		 playerColour = colourYellow;
+	 }
+	 var brownBtn = document.getElementById('Brown');
+	 brownBtn.onclick = function() {
+		 playerColour = colourBrown;
+	 }
 }
 
 var ctx = canvas.getContext("2d");
@@ -102,7 +118,7 @@ function endDraw() {
 
 function redraw(){
   
-  ctx.strokeStyle = playerColour;
+  /*ctx.strokeStyle = playerColour;*/
   ctx.lineJoin = "round";
   ctx.lineWidth = cursorRadius;
 			
@@ -115,6 +131,7 @@ function redraw(){
      }
      ctx.lineTo(clickX[i], clickY[i]);
      ctx.closePath();
+	 ctx.strokeStyle = clickColour[i];
      ctx.stroke();
   }
 }
