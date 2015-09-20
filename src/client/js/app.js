@@ -93,6 +93,11 @@ function setupSocket(socket) {
 
 window.onload = function() {
 
+	canvas.addEventListener("touchstart", touchHandler, true);
+    canvas.addEventListener("touchmove", touchHandler, true);
+    canvas.addEventListener("touchend", touchHandler, true);
+    canvas.addEventListener("touchcancel", touchHandler, true);
+
 	var btn = document.getElementById('startButton');
 	btn.onclick = function() {
 		startGame('player');
@@ -105,6 +110,29 @@ window.onload = function() {
 			startGame('player');
 		}
 	 }, false);
+	 //Clear button
+	 var clearBtn = document.getElementById('Clear');
+	 clearBtn.onclick = function(){
+		clickX = new Array();
+		clickY = new Array();
+		clickDrag = new Array();
+		clickSize = new Array();
+		clickColour = new Array();
+		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
+		initCanvasWithImage(image);
+	 }
+	 //New image button
+	 var newImgBtn = document.getElementById('NewImg');
+	 newImgBtn.onclick = function(){
+		clickX = new Array();
+		clickY = new Array();
+		clickDrag = new Array();
+		clickSize = new Array();
+		clickColour = new Array();
+		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
+		image = newImageInput.value;
+		initCanvasWithImage(image);
+	 }
 	 //Colour buttons
 	 var purpleBtn = document.getElementById('Purple');
 	 purpleBtn.onclick = function() {
@@ -178,8 +206,6 @@ function endDraw() {
 }
 
 function redraw(){
-  
-	/*ctx.strokeStyle = playerColour;*/
 	ctx.lineJoin = "round";
 	var radius;
 		
@@ -213,6 +239,39 @@ function redraw(){
      ctx.stroke();
   }
 }
+
+	// To manage touch events for mobile
+    // http://ross.posterous.com/2008/08/19/iphone-touch-events-in-javascript/
+
+    function touchHandler(event)
+    {
+        var touches = event.changedTouches,
+            first = touches[0],
+            type = '';
+        switch(event.type)
+        {
+            case "touchstart":
+                type = "mousedown";
+                break;
+           case "touchmove":
+                type = "mousemove";
+                break;
+            case "touchend":
+                type = "mouseup";
+                break;
+            default:
+                return;
+        }
+
+        var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent(type, true, true, window, 1,
+            first.screenX, first.screenY,
+            first.clientX, first.clientY, false,
+            false, false, false, 0/*left*/, null);
+
+        first.target.dispatchEvent(simulatedEvent);
+        event.preventDefault();
+    }
 
 function initCanvasWithImage(url) {
 	var img = new Image;

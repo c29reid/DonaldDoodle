@@ -68,7 +68,7 @@ canvas { border: 1px solid black;
     box-shadow: 0 0 3px 1px #DDDDDD;
 }
 
-#imageInput{
+#imageInput, #newImageInput{
 	width: 100%;
     text-align: center;
     padding: 10px;
@@ -82,7 +82,7 @@ canvas { border: 1px solid black;
     outline: none;
 }
 
-#imageInput:focus, #imageInput.focus {
+#imageInput:focus, #imageInput.focus , #newImageInput:focus, #newImageInput.focus{
     border: solid 1px #CCCCCC;
     box-shadow: 0 0 3px 1px #DDDDDD;
 }
@@ -137,7 +137,7 @@ canvas { border: 1px solid black;
     position: right;
     margin: auto;
     margin-top: 10px;
-    width: 50px;
+    width: 50%;
     padding: 20px;
     border-radius: 10px;
     -moz-border-radius: 10px;
