@@ -7,7 +7,19 @@ var image;
 
 mouseDown = false;
 
+var canvas = document.getElementById('cvs');
 
+//Save the click positions in an array
+var clickX = new Array();
+var clickY = new Array();
+var clickDrag = new Array();
+
+function addClick(x, y, dragging)
+{
+  clickX.push(x);
+  clickY.push(y);
+  clickDrag.push(dragging);
+}
 
 function startGame(type) {
     playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '').substring(0,25);
@@ -24,7 +36,7 @@ function startGame(type) {
 	canvas.addEventListener("mousedown", handleMouseDown, false);
 	canvas.addEventListener("mousemove", handleMouseMove, false);
 	canvas.addEventListener("mouseup", endDraw, false);
-	canvas.addEventListener("mouseout", endDraw, false);
+	canvas.addEventListener("mouseout", handleMouseLeave, false);
 
 }
 
@@ -44,19 +56,7 @@ window.onload = function() {
 	 }, false);
 }
 
-var canvas = document.getElementById('cvs');
 var ctx = canvas.getContext("2d");
-
-
-
-
-function drawCircle(x, y) {
-	ctx.beginPath();
-	ctx.fillStyle = playerColour;
-	ctx.arc(x, y, cursorRadius, 0, 2*Math.PI, false);
-	ctx.fill();
-	ctx.closePath();
-}
 
 function getMousePos(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
@@ -67,20 +67,47 @@ function getMousePos(canvas, evt) {
 }
 
 function handleMouseDown(evt) {
-	var mousePos = getMousePos(canvas, evt)
-	drawCircle(mousePos.x, mousePos.y);
-	mouseDown = true;
+
+	var mouseX = evt.pageX - this.offsetLeft;
+  	var mouseY = evt.pageY - this.offsetTop;
+		
+  	mouseDown = true;
+  	addClick(evt.pageX - this.offsetLeft, evt.pageY - this.offsetTop);
+  	redraw();
 }
 
 function handleMouseMove(evt) {
-	if (mouseDown) {
-		var mousePos = getMousePos(canvas, evt)
-		drawCircle(mousePos.x, mousePos.y);
-	}
+  	if(mouseDown){
+	    addClick(evt.pageX - this.offsetLeft, evt.pageY - this.offsetTop, true);
+	    redraw();
+  	}	
+}
+
+function handleMouseLeave(evt){
+  mouseDown = false;
 }
 
 function endDraw() {
 	mouseDown = false;
+}
+
+function redraw(){
+  
+  ctx.strokeStyle = playerColour;
+  ctx.lineJoin = "round";
+  ctx.lineWidth = cursorRadius;
+			
+  for(var i=0; i < clickX.length; i++) {		
+    ctx.beginPath();
+    if(clickDrag[i] && i){
+      ctx.moveTo(clickX[i-1], clickY[i-1]);
+     }else{
+       ctx.moveTo(clickX[i]-1, clickY[i]);
+     }
+     ctx.lineTo(clickX[i], clickY[i]);
+     ctx.closePath();
+     ctx.stroke();
+  }
 }
 
 function initCanvasWithImage(url) {
@@ -93,6 +120,5 @@ function initCanvasWithImage(url) {
 						0, 0, scale*this.width, scale*this.height);
 		}	
 	img.src = url;
-	
 	
 }
