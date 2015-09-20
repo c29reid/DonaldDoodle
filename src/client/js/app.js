@@ -53,7 +53,6 @@ function addClick(x, y, dragging){
 function startGame(type) {
     playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '').substring(0,25);
     playerType = type;
-	image = imageInput.value;
 
     var screenWidth = window.innerWidth;
     var screenHeight = window.innerHeight;
@@ -70,7 +69,8 @@ function startGame(type) {
 	socket = io({});
 	setupSocket(socket);
     }
-    socket.emit('new_background', {img : image});
+
+    socket.emit('new_background', {img :  imageInput.value});
 
 }
 
@@ -91,6 +91,7 @@ function setupSocket(socket) {
 	ctx.stroke();
   });
   socket.on('background_changed', function(data) {
+	image = data.img;
 	clickX = new Array();
 	clickY = new Array();
 	clickDrag = new Array();
