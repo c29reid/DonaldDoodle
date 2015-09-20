@@ -1,0 +1,15 @@
+{
+  "name": "donalddoodle",
+  "version": "1.0.0",
+  "description": "A multiplayer drawing game",
+  "main": "server.js",
+  "author": "",
+  "license": "MIT",
+  "contributors": [
+  ],
+  "dependencies": {
+    "express": "^4.12.4",
+    "socket.io": "^1.3.5",
+    "socket.io-client": "^1.3.5"
+  }
+}
