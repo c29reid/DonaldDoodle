@@ -20,14 +20,13 @@ var colourYellow = "#ffcf33";
 var colourBrown = "#986928";
 
 playerColour = colourPurple;
-/*var clickColour = new Array();*/
-var clickColour = document.getElementById('toolBarWrapper');
+var clickColour = new Array();
 
 function addClick(x, y, dragging){
   clickX.push(x);
   clickY.push(y);
   clickDrag.push(dragging);
-  clickColour.push(curColour);
+  clickColour.push(playerColour);
 }
 
 function startGame(type) {
