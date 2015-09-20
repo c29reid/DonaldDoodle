@@ -1,6 +1,9 @@
 cursorRadius = 5;
 playerColour = '#0000FF';
 var KEY_ENTER = 13;
+var playerName;
+var playerType;
+var image;
 
 mouseDown = false;
 
@@ -9,6 +12,7 @@ mouseDown = false;
 function startGame(type) {
     playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '').substring(0,25);
     playerType = type;
+	image = imageInput.value;
 
     screenWidth = window.innerWidth;
     screenHeight = window.innerHeight;
@@ -16,7 +20,7 @@ function startGame(type) {
     document.getElementById('startMenuWrapper').style.maxHeight = '0px';
     document.getElementById('gameAreaWrapper').style.opacity = 1;
 	
-	initCanvasWithImage("https://a248.e.akamai.net/f/1202/1579/4m/i.dailymail.co.uk/i/pix/2014/10/06/1412613364603_wps_17_SANTA_MONICA_CA_AUGUST_04.jpg");	
+	initCanvasWithImage(image);
 	canvas.addEventListener("mousedown", handleMouseDown, false);
 	canvas.addEventListener("mousemove", handleMouseMove, false);
 	canvas.addEventListener("mouseup", endDraw, false);
@@ -52,7 +56,6 @@ function drawCircle(x, y) {
 	ctx.arc(x, y, cursorRadius, 0, 2*Math.PI, false);
 	ctx.fill();
 	ctx.closePath();
-	
 }
 
 function getMousePos(canvas, evt) {
@@ -87,8 +90,9 @@ function initCanvasWithImage(url) {
 		canvas.height = scale*this.height;
 		canvas.width = scale*this.width;
 		ctx.drawImage(img, 0, 0, this.width, this.height,
-							0, 0, scale*this.width, scale*this.height);
-	}
+						0, 0, scale*this.width, scale*this.height);
+		}	
 	img.src = url;
-
+	
+	
 }
