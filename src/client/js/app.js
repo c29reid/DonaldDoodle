@@ -82,6 +82,17 @@ window.onload = function() {
 			startGame('player');
 		}
 	 }, false);
+	 //Clear button
+	 var clearBtn = document.getElementById('Clear');
+	 clearBtn.onclick = function(){
+		clickX = new Array();
+		clickY = new Array();
+		clickDrag = new Array();
+		clickSize = new Array();
+		clickColour = new Array();
+		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
+		initCanvasWithImage(image)
+	 }
 	 //Colour buttons
 	 var purpleBtn = document.getElementById('Purple');
 	 purpleBtn.onclick = function() {
@@ -155,8 +166,6 @@ function endDraw() {
 }
 
 function redraw(){
-  
-	/*ctx.strokeStyle = playerColour;*/
 	ctx.lineJoin = "round";
 	var radius;
 		
