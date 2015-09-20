@@ -132,6 +132,23 @@ canvas { border: 1px solid black;
 	position: center;
 }
 
+
+#toolBar {
+    position: right;
+    margin: auto;
+    margin-top: 10px;
+    width: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    /*background-color: #FC6C85;
+    box-sizing: border-box;*/
+}
+
+#toolBarWrapper {
+	position: right;
+}
 #gameAreaWrapper {
     top: 0;
     left: 0;

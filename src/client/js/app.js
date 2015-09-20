@@ -1,5 +1,4 @@
 cursorRadius = 5;
-playerColour = '#0000FF';
 var KEY_ENTER = 13;
 var playerName;
 var playerType;
@@ -8,6 +7,14 @@ var image;
 mouseDown = false;
 
 
+var colourPurple = "#cb3594";
+var colourGreen = "#659b41";
+var colourYellow = "#ffcf33";
+var colourBrown = "#986928";
+
+playerColour = colourPurple;
+/*var clickColour = new Array();*/
+var clickColour = document.getElementById('toolBarWrapper');
 
 function startGame(type) {
     playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '').substring(0,25);
@@ -51,6 +58,7 @@ var ctx = canvas.getContext("2d");
 
 
 function drawCircle(x, y) {
+	
 	ctx.beginPath();
 	ctx.fillStyle = playerColour;
 	ctx.arc(x, y, cursorRadius, 0, 2*Math.PI, false);
@@ -95,4 +103,12 @@ function initCanvasWithImage(url) {
 	img.src = url;
 	
 	
+}
+
+function addClick(x, y, dragging)
+{
+  /*clickX.push(x);
+  clickY.push(y);*/
+  clickDrag.push(dragging);
+  clickColour.push(curColour);
 }
