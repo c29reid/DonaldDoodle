@@ -7,7 +7,7 @@ gulp.task('build', ['build-client', 'build-server']);
 
 gulp.task('build-client', ['move-client'], function() {
 	return gulp.src(['src/client/js/app.js'])
-	//.pipe(webpack(require('./webpack.config.js')))
+	.pipe(webpack(require('./webpack.config.js')))
 	.pipe(gulp.dest('./bin/client/js/'));
 });
 
