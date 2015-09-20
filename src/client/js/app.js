@@ -1,11 +1,14 @@
-cursorRadius = 5;
-playerColour = '#0000FF';
+var io = require('socket.io-client');
+var socket;
+
+var cursorRadius = 5;
+var playerColour = '#0000FF';
 var KEY_ENTER = 13;
 var playerName;
 var playerType;
 var image;
 
-mouseDown = false;
+var mouseDown = false;
 
 var canvas = document.getElementById('cvs');
 
@@ -26,17 +29,25 @@ function startGame(type) {
     playerType = type;
 	image = imageInput.value;
 
-    screenWidth = window.innerWidth;
-    screenHeight = window.innerHeight;
+    var screenWidth = window.innerWidth;
+    var screenHeight = window.innerHeight;
 
     document.getElementById('startMenuWrapper').style.maxHeight = '0px';
     document.getElementById('gameAreaWrapper').style.opacity = 1;
 	
-	initCanvasWithImage(image);
-	canvas.addEventListener("mousedown", handleMouseDown, false);
-	canvas.addEventListener("mousemove", handleMouseMove, false);
-	canvas.addEventListener("mouseup", endDraw, false);
-	canvas.addEventListener("mouseout", handleMouseLeave, false);
+    initCanvasWithImage(image);
+    canvas.addEventListener("mousedown", handleMouseDown, false);
+    canvas.addEventListener("mousemove", handleMouseMove, false);  
+    canvas.addEventListener("mouseup", endDraw, false);
+    canvas.addEventListener("mouseout", handleMouseLeave, false);
+
+    if (!socket) {
+	socket = io({});
+	setupSocket(socket);
+    }
+}
+
+function setupSocket(socket) {
 
 }
 
