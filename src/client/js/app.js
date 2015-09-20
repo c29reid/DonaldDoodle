@@ -24,7 +24,7 @@ var colourGreen = "#659b41";
 var colourYellow = "#ffcf33";
 var colourBrown = "#986928";
 
-playerColour = colourPurple;
+var playerColour = colourPurple;
 var clickColour = new Array();
 
 function addClick(x, y, dragging){
@@ -32,6 +32,8 @@ function addClick(x, y, dragging){
   clickY.push(y);
   clickDrag.push(dragging);
   clickColour.push(playerColour);
+
+  socket.emit('draw', { x : x, y : y, colour : playerColour, radius : 
 }
 
 function startGame(type) {
@@ -58,7 +60,7 @@ function startGame(type) {
 }
 
 function setupSocket(socket) {
-
+    
 }
 
 window.onload = function() {
