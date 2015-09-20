@@ -65,6 +65,11 @@ function setupSocket(socket) {
 
 window.onload = function() {
 
+	document.addEventListener("touchstart", touchHandler, true);
+    document.addEventListener("touchmove", touchHandler, true);
+    document.addEventListener("touchend", touchHandler, true);
+    document.addEventListener("touchcancel", touchHandler, true);
+
 	var btn = document.getElementById('startButton');
 	btn.onclick = function() {
 		startGame('player');
@@ -188,11 +193,6 @@ function redraw(){
 
 	// To manage touch events for mobile
     // http://ross.posterous.com/2008/08/19/iphone-touch-events-in-javascript/
-
-    document.addEventListener("touchstart", touchHandler, true);
-    document.addEventListener("touchmove", touchHandler, true);
-    document.addEventListener("touchend", touchHandler, true);
-    document.addEventListener("touchcancel", touchHandler, true);
 
     function touchHandler(event)
     {
