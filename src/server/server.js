@@ -22,10 +22,12 @@ io.on('connection', function(socket) {
 		sockets.forEach(function(socket) {
 			if (socket.id != data.id) {
 				socket.emit( 'update_draw', data);
-				console.log('Got point (' + data.x1 + ',' + data.y1 + ')');
-				console.log('(' + data.x2 + ',' + data.y2 +')');
 			}
 		});
+	});
+	socket.on('new_background', function(data) {
+		console.log(data.img);
+		io.sockets.emit('background_changed', data);
 	});	
 
 });

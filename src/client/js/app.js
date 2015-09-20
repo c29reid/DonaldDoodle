@@ -61,7 +61,6 @@ function startGame(type) {
     document.getElementById('startMenuWrapper').style.maxHeight = '0px';
     document.getElementById('gameAreaWrapper').style.opacity = 1;
 	
-    initCanvasWithImage(image);
     canvas.addEventListener("mousedown", handleMouseDown, false);
     canvas.addEventListener("mousemove", handleMouseMove, false);  
     canvas.addEventListener("mouseup", endDraw, false);
@@ -71,6 +70,8 @@ function startGame(type) {
 	socket = io({});
 	setupSocket(socket);
     }
+    socket.emit('new_background', {img : image});
+
 }
 
 function setupSocket(socket) {
@@ -88,7 +89,17 @@ function setupSocket(socket) {
 	ctx.strokeStyle = data.colour; 
 	ctx.lineWidth = data.radius;
 	ctx.stroke();
-});    
+  });
+  socket.on('background_changed', function(data) {
+	clickX = new Array();
+	clickY = new Array();
+	clickDrag = new Array();
+	clickSize = new Array();
+	clickColour = new Array();
+	console.log(data.img);
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	initCanvasWithImage(data.img);
+  });    
 }
 
 window.onload = function() {
@@ -113,25 +124,12 @@ window.onload = function() {
 	 //Clear button
 	 var clearBtn = document.getElementById('Clear');
 	 clearBtn.onclick = function(){
-		clickX = new Array();
-		clickY = new Array();
-		clickDrag = new Array();
-		clickSize = new Array();
-		clickColour = new Array();
-		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
-		initCanvasWithImage(image);
+		socket.emit('new_background', {img: image});
 	 }
 	 //New image button
 	 var newImgBtn = document.getElementById('NewImg');
 	 newImgBtn.onclick = function(){
-		clickX = new Array();
-		clickY = new Array();
-		clickDrag = new Array();
-		clickSize = new Array();
-		clickColour = new Array();
-		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
-		image = newImageInput.value;
-		initCanvasWithImage(image);
+		socket.emit('new_background', {img: newImageInput.value});
 	 }
 	 //Colour buttons
 	 var purpleBtn = document.getElementById('Purple');
