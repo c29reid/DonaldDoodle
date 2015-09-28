@@ -7,4 +7,4 @@ npm install
 npm start
 
 
-This is also hosted at donalddoodle.duckdns.org
+This is also hosted at http://www.donalddoodle.duckdns.org
